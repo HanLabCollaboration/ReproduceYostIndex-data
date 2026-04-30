@@ -1,74 +1,35 @@
-# ReproduceYostIndex-data
+# ReproduceYost-data
 
-Pre-computed Yost Index data files for the [ReproduceYostIndex](https://github.com/HanLabCollaboration/ReproduceYostIndex) R package.
+Pre-computed Yost Index data files for the [ReproduceYost](https://github.com/HanLabCollaboration/ReproduceYost) R package.
 
-## What's included
+## Structure
 
-Data are distributed as GitHub Release assets — one gzip-compressed CSV and one GeoPackage per `(geo × year)` combination, covering all four Yost variants in a single wide file.
+Data are distributed as GitHub Release assets in two formats per `(geo x year)` combination:
 
-### CSV files (`yost_{geo}_{scope}_{year}.csv.gz`)
-
-74 files total — one per `(geo × scope × year)`:
+### CSV (gzip-compressed) — one file per `(geo x scope x year)`
 
 | geo | scope | years |
 |---|---|---|
-| county | national, state | 2011–2023 |
-| tract | national, state | 2011–2023 |
-| block group | national, state | 2013–2023 |
+| county | national, state | 2011–2024 |
+| tract | national, state | 2011–2024 |
+| block group | national, state | 2013–2024 |
 
-### GeoPackage files (`yost_{geo}_{year}.gpkg`)
+**80 files.** File naming: `yost_{geo}_{scope}_{year}.csv.gz`
 
-37 files total — one per `(geo × year)`, scope-agnostic (geometry is identical for national and state scope):
+### GeoPackage — one file per `(geo x year)`
 
 | geo | years |
 |---|---|
-| county | 2011–2023 |
-| tract | 2011–2023 |
-| block group | 2013–2023 |
+| county | 2011–2024 |
+| tract | 2011–2024 |
+| block group | 2013–2024 |
 
-## Columns (CSV)
+**40 files.** File naming: `yost_{geo}_{year}.gpkg`
 
-| Column | Description |
-|---|---|
-| `GEOID` | Census geographic identifier |
-| `NAME` | Geographic name |
-| `year` | ACS 5-year estimate end year |
-| `geo` | Geography level (`county`, `tract`, `block group`) |
-| `scope` | Quintile scope (`national` or `state`) |
-| `Yost` | Yost Index |
-| `YostQuintile` | Quintile (1 = least deprived, 5 = most deprived) |
-| `YostStabilized` | Empirical Bayes–stabilized Yost Index |
-| `YostStabilizedQuintile` | Quintile of stabilized index |
-| `YostImputed` | Yost Index with missing values imputed |
-| `YostImputedQuintile` | Quintile of imputed index |
-| `YostStabilizedImputed` | Stabilized + imputed Yost Index |
-| `YostStabilizedImputedQuintile` | Quintile of stabilized + imputed index |
+## Columns
+
+`GEOID`, `year`, `geo`, `scope`, `Yost`, `YostQuintile`, `YostShrunk`, `YostShrunkQuintile`, `YostImputed`, `YostImputedQuintile`, `YostShrunkImputed`, `YostShrunkImputedQuintile`
 
 ## Usage
 
-These files are consumed automatically by `getYostIndex()` in the ReproduceYostIndex package. You do not need to download them manually.
-
-```r
-# Install the package
-remotes::install_github("HanLabCollaboration/ReproduceYostIndex")
-
-# Retrieve pre-computed data — no Census API key required
-library(ReproduceYostIndex)
-
-# All US counties, 2022
-county_yost <- getYostIndex(geo = "county", year = 2022)
-
-# Tracts for California, state scope
-ca_tracts <- getYostIndex(geo = "tract", year = 2022,
-                          states = "CA", scope = "state")
-
-# Block groups with geometry (sf object)
-bg_sf <- getYostIndex(geo = "block group", year = 2021, geometry = TRUE)
-```
-
-Files are cached locally after the first download (`tools::R_user_dir("ReproduceYostIndex", "cache")`), so repeat calls are instantaneous.
-
-## Release
-
-Current release: **data-v2026.04**  
-See [Releases](https://github.com/HanLabCollaboration/ReproduceYostIndex-data/releases) for all available versions.
+These files are consumed automatically by `getYost()` in the ReproduceYost package. You do not need to download them manually.
