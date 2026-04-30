@@ -1,6 +1,6 @@
-# ReproduceYost-data
+# ReproduceYostIndex-data
 
-Pre-computed Yost Index data files for the [ReproduceYost](https://github.com/HanLabCollaboration/ReproduceYost) R package.
+Pre-computed Yost Index data files for the [ReproduceYostIndex](https://github.com/HanLabCollaboration/ReproduceYostIndex) R package.
 
 ## Structure
 
@@ -32,4 +32,4 @@ Data are distributed as GitHub Release assets in two formats per `(geo x year)` 
 
 ## Usage
 
-These files are consumed automatically by `getYost()` in the ReproduceYost package. You do not need to download them manually.
+These files are consumed automatically by `getYostIndex()` in the ReproduceYostIndex package. You do not need to download them manually.
